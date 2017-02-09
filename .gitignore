@@ -1,0 +1,11 @@
+*
+!*.awk
+!*.enc
+!.git*
+!*.yml
+!*Makefile
+!*.sublime-project
+!*.md
+!LICENSE
+!examples
+!examples/**

@@ -1,0 +1,25 @@
+version: 1.0.0-{build}
+
+skip_tags: false
+
+platform: x64
+configuration: Release
+
+clone_folder: C:\gen-epub-book
+
+install:
+  - set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
+  - bash -lc "pacman --needed --noconfirm -Sy pacman-mirrors"
+  - bash -lc "pacman --noconfirm -Sy"
+  - bash -lc "pacman --noconfirm -S gawk"
+
+test: off
+test_script:
+  - make
+
+notifications:
+  - provider: Email
+    to:
+      - nabijaczleweli@gmail.com
+    on_build_status_changed: true
+    on_build_success: false

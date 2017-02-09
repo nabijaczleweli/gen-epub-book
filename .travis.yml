@@ -1,0 +1,87 @@
+sudo: false
+language: generic
+
+matrix:
+  include:
+    - env: LANGUAGE=AWK AWK=mawk DEPLOY=true DEPLOY_FILE="$TRAVIS_BUILD_DIR/../gen-epub-book-$TRAVIS_TAG.awk"
+      language: bash
+      addons:
+        apt:
+          packages:
+            - mawk
+          sources: &sources
+            - r-packages-precise
+    - env: LANGUAGE=AWK AWK=gawk
+      language: bash
+      addons:
+        apt:
+          packages:
+            - gawk
+          sources: *sources
+    - env: LANGUAGE=Ruby DEPLOY=true DEPLOY_FILE="$TRAVIS_BUILD_DIR/../gen-epub-book.awk-man-$TRAVIS_TAG.tbz2"
+      language: ruby
+      rvm: "2.2"
+
+before_install:
+  - if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
+      openssl aes-256-cbc -K $encrypted_ceb95413eb04_key -iv $encrypted_ceb95413eb04_iv -in gh_rsa.enc -out gh_rsa -d;
+    fi
+
+install:
+  - if [ "$LANGUAGE" == "AWK" ]; then export PATH="$HOME/calibre:$PATH"; fi
+  - if [ "$LANGUAGE" == "AWK" ]; then curl -SL https://download.calibre-ebook.com/linux-installer.py | python -c "import sys; import os; main=lambda x:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main(os.getenv('HOME'))"; fi
+  - if [ "$LANGUAGE" == "AWK" ]; then ebook-convert --version ; fi
+  -
+  - if [ "$LANGUAGE" == "Ruby" ]; then gem install ronn; fi
+
+script:
+  - if [ "$LANGUAGE" == "AWK" ]; then make; fi
+  -
+  - if [ "$LANGUAGE" == "Ruby" ]; then
+      mkdir man; pushd man;
+      cp ../gen-epub-book.awk.md .;
+      ronn --organization="gen-epub-book.awk developers" gen-epub-book.md;
+      mv "gen-epub-book.1.html" "gen-epub-book.awk.1.html";
+      mv "gen-epub-book.1" "gen-epub-book.awk.1";
+      popd;
+    fi
+
+after_success:
+  - if [ "$LANGUAGE" == "AWK" ] && [ "$TRAVIS_TAG" ]; then
+      cp "gen-epub-book.awk" "$DEPLOY_FILE";
+    fi
+  - if [ "$LANGUAGE" == "Ruby" ] && [ "$TRAVIS_SECURE_ENV_VARS" == "true" ] && [ "$TRAVIS_COMMIT_RANGE" ] && ! [ "$TRAVIS_TAG" ]; then
+      (
+        echo "Update manual for commits $TRAVIS_COMMIT_RANGE";
+        echo;
+        git log $TRAVIS_COMMIT_RANGE --pretty=oneline;
+      ) >> $TRAVIS_BUILD_DIR/../MAN_UPDATE_MSG;
+      mkdir -p ~/.ssh && cp gh_rsa ~/.ssh/id_rsa && chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa;
+      git clone -b man git@github.com:$TRAVIS_REPO_SLUG.git $TRAVIS_BUILD_DIR.awk-man;
+      cp -f man/* "$TRAVIS_BUILD_DIR.awk-man";
+      pushd "$TRAVIS_BUILD_DIR.awk-man";
+      git config --global user.email "nabijaczleweli@gmail.com";
+      git config --global user.name "Nabijaczleweli Autouploader Bot";
+      git config --global push.default simple;
+      git add *;
+      git commit -F $TRAVIS_BUILD_DIR/../MAN_UPDATE_MSG;
+      git push;
+      popd;
+    fi
+  - if [ "$LANGUAGE" == "Ruby" ] && [ "$TRAVIS_TAG" ]; then
+      cp -r man "$TRAVIS_BUILD_DIR/../gen-epub-book.awk-man-$TRAVIS_TAG";
+      pushd "$TRAVIS_BUILD_DIR/..";
+      tar -caf "gen-epub-book.awk-man-$TRAVIS_TAG.tbz2" "gen-epub-book.awk-man-$TRAVIS_TAG";
+      rm -rf "gen-epub-book.awk-man-$TRAVIS_TAG";
+      popd;
+    fi
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "behxtAipfScuCloPjIOZGcuhF7WFJ7zrwUWZvn85KnBFNw3fF1tWGu9E8AByTBqdA6olBZWZaJru8l4YWw6iPkvmYGg1HFRsEY6XppszkzOWu8qUIlDKqUhLdOBov+mVQLU2b7V8Jv8KOii0QZUKmkvgAFdg1YsPL/9lk6850YbGJve5qUzCRgKyPIkW8aEV/IBVUwweo5tgtmKKnFhHnJ4u6V/Bl4440wVXwTTfnKA93qTIp114YY/wqrFpD5UMPO0OhsWdn7bv4dSN2tvpdf/3ixjgTjrb5ITIgYEPn0xKBH+msraF9EtpdsqTZVHdzPBfrYHg7VTrxqKvcT6xQupt3n6kvi+VK0wb2n1gkBCZnCcxmN27//1MOMYcNFg541aUUp+1gCauENeMlCY8ODBIalG9QqVAVDXQjV2BHSySwcEc9qnRh8Ji5VxQG1bWTOfSWm7AM/1C0vjaYZ1tTaLk2klEw+ilOwW78ucboHLbUP1iFg2kN4QlnN3sOzyIgYNwEujRBEOT8iIWjofXUq7ZnUnSbpmDwbxzbKb26MFbgQ3CRLZ7guEp5uY+6lRNzA4ZWqw+UrK9WLBX2xXKVo1/XoXtmIhozzb1X7cKyM2KmpY89vUVz2SzPhv6kNRPWKqVb6zUasiXND5D7o5BfxV2Si76SO96hcW5lQ+L9UI="
+  file: "$DEPLOY_FILE"
+  skip_cleanup: true
+  on:
+    tags: true
+    env: $DEPLOY = true
