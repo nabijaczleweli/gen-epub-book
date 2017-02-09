@@ -1,4 +1,4 @@
-# gen-epub-book.awk [![TravisCI Build Status](https://travis-ci.org/nabijaczleweli/gen-epub-book)](https://travis-ci.org/nabijaczleweli/gen-epub-book) [![AppVeyorCI build status](https://ci.appveyor.com/api/projects/status/197cavyvmq0vn2gr/branch/master?svg=true)](https://ci.appveyor.com/project/nabijaczleweli/gen-epub-book/branch/master) [![Licence](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+# gen-epub-book.awk [![TravisCI Build Status](https://travis-ci.org/nabijaczleweli/gen-epub-book.svg?branch=master)](https://travis-ci.org/nabijaczleweli/gen-epub-book) [![AppVeyorCI build status](https://ci.appveyor.com/api/projects/status/197cavyvmq0vn2gr/branch/master?svg=true)](https://ci.appveyor.com/project/nabijaczleweli/gen-epub-book/branch/master) [![Licence](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 Generate an ePub book from a simple plaintext descriptor.
 
 ## [Manpage](https://cdn.rawgit.com/nabijaczleweli/gen-epub-book/man/gen-epub-book.awk.1.html)
@@ -36,6 +36,15 @@ There really are no good alternatives and I wanted soemthing automated to be abl
 Also, why not?
 
 ## [Previous history](https://github.com/nabijaczleweli/nabijaczleweli.github.io/commits/dev/gen-epub-book.awk)
+
+## AWK support
+
+AWK version|Supported
+-----------|---------
+    GAWK   |   :+1:
+    MAWK   |   :-1:
+
+Other versions untested, open an issue if you want one.
 
 ## Versions in other languages
 

@@ -13,6 +13,8 @@ install:
   - bash -lc "pacman --noconfirm -Sy"
   - bash -lc "pacman --noconfirm -S gawk"
 
+build: off
+
 test: off
 test_script:
   - make
