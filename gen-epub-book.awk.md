@@ -139,6 +139,15 @@ represented by the document containing this entry.
 
 Optional.
 
+## SUPPORTED AWKS
+
+The script is continually tested against semi-recent GAWK and will work there.
+
+The script doesn't support MAWK.
+
+Need support/testing for some AWK version? Contact me via e-mail or pop into
+GitHub issues.
+
 ## AUTHOR
 
 Written by nabijaczleweli &lt;<nabijaczleweli@gmail.com>&gt;
