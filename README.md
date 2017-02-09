@@ -28,15 +28,6 @@ echo -e "Self: example/test.epupp\nOut: out/test.epub" | cat - example/test.epup
 
 For more detailed usage information and tag list, see the [manpage](https://cdn.rawgit.com/nabijaczleweli/gen-epub-book/man/gen-epub-book.awk.1.html).
 
-## Why?
-
-There really are no good alternatives and I wanted soemthing automated to be able to deploy this to a
-[webpage](https://nabijaczleweli.xyz/capitalism/writing_prompts) so I could download stuff to my Kindle.
-
-Also, why not?
-
-## [Previous history](https://github.com/nabijaczleweli/nabijaczleweli.github.io/commits/dev/gen-epub-book.awk)
-
 ## AWK support
 
 AWK version|Supported
@@ -45,6 +36,23 @@ AWK version|Supported
     MAWK   |   :-1:
 
 Other versions untested, open an issue if you want one.
+
+## Dependencies
+
+A supported AWK version, obviously. The built-in should suffice on Linux, but `gawk` on APT and MSYS2 will work.
+
+Info-ZIP, a.k.a. `zip` on both APT and MSYS2.
+
+If you want to build the examples, you need [Calibre](https://calibre-ebook.com).
+
+## Why?
+
+There really are no good alternatives and I wanted soemthing automated to be able to deploy this to a
+[webpage](https://nabijaczleweli.xyz/capitalism/writing_prompts) so I could download stuff to my Kindle.
+
+Also, why not?
+
+## [Previous history](https://github.com/nabijaczleweli/nabijaczleweli.github.io/commits/dev/gen-epub-book.awk)
 
 ## Versions in other languages
 
