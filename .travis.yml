@@ -3,7 +3,9 @@ language: generic
 
 matrix:
   include:
-    - env: LANGUAGE=AWK AWK=mawk DEPLOY=true DEPLOY_FILE="$TRAVIS_BUILD_DIR/../gen-epub-book-$TRAVIS_TAG.awk"
+    - env: LANGUAGE=AWK AWK=awk DEPLOY=true DEPLOY_FILE="$TRAVIS_BUILD_DIR/../gen-epub-book-$TRAVIS_TAG.awk"
+      language: bash
+    - env: LANGUAGE=AWK AWK=mawk
       language: bash
       addons:
         apt:
@@ -21,6 +23,8 @@ matrix:
     - env: LANGUAGE=Ruby DEPLOY=true DEPLOY_FILE="$TRAVIS_BUILD_DIR/../gen-epub-book.awk-man-$TRAVIS_TAG.tbz2"
       language: ruby
       rvm: "2.2"
+  allow_failures:
+    - env: LANGUAGE=AWK AWK=mawk
 
 before_install:
   - if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
@@ -31,16 +35,20 @@ install:
   - if [ "$LANGUAGE" == "AWK" ]; then export PATH="$HOME/calibre:$PATH"; fi
   - if [ "$LANGUAGE" == "AWK" ]; then curl -SL https://download.calibre-ebook.com/linux-installer.py | python -c "import sys; import os; main=lambda x:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main(os.getenv('HOME'))"; fi
   - if [ "$LANGUAGE" == "AWK" ]; then ebook-convert --version ; fi
+  - if [ "$LANGUAGE" == "AWK" ] && [ "$AWK" == "mawk" ]; then $AWK -W version; fi
+  - if [ "$LANGUAGE" == "AWK" ] && ! [ "$AWK" == "mawk" ]; then $AWK --version; fi
   -
   - if [ "$LANGUAGE" == "Ruby" ]; then gem install ronn; fi
 
 script:
-  - if [ "$LANGUAGE" == "AWK" ]; then make; fi
+  - if [ "$LANGUAGE" == "AWK" ]; then
+      make AWK=$AWK;
+    fi
   -
   - if [ "$LANGUAGE" == "Ruby" ]; then
       mkdir man; pushd man;
-      cp ../gen-epub-book.awk.md .;
-      ronn --organization="gen-epub-book.awk developers" gen-epub-book.md;
+      cp ../gen-epub-book.md gen-epub-book.awk.md;
+      ronn --organization="gen-epub-book.awk developers" gen-epub-book.awk.md;
       mv "gen-epub-book.1.html" "gen-epub-book.awk.1.html";
       mv "gen-epub-book.1" "gen-epub-book.awk.1";
       popd;
