@@ -56,4 +56,4 @@ Also, why not?
 
 ## Versions in other languages
 
-Currently none. Come back later.
+A rewrite in [Rust](https://github.com/nabijaczleweli/gen-epub-book.rs).
