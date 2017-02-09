@@ -1,6 +1,8 @@
 version: 1.0.0-{build}
-
 skip_tags: false
+
+environment:
+  CALIBRE_VERSION: 2.78.0
 
 platform: x64
 configuration: Release
@@ -8,10 +10,13 @@ configuration: Release
 clone_folder: C:\gen-epub-book
 
 install:
-  - set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
+  - set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;C:\Program Files\PFiles\Calibre2;%PATH%
   - bash -lc "pacman --needed --noconfirm -Sy pacman-mirrors"
   - bash -lc "pacman --noconfirm -Sy"
-  - bash -lc "pacman --noconfirm -S gawk"
+  - bash -lc "pacman --noconfirm -S gawk zip"
+  -
+  - curl -SL https://download.calibre-ebook.com/%CALIBRE_VERSION%/calibre-64bit-%CALIBRE_VERSION%.msi -o C:\calibre-64bit-%CALIBRE_VERSION%.msi
+  - start /w msiexec /qn /quiet /passive /a C:\calibre-64bit-%CALIBRE_VERSION%.msi TARGETDIR="C:\Program Files"
 
 build: off
 
