@@ -7,10 +7,69 @@
 \fBgen\-epub\-book\.rs\fR \- Generate an ePub book from a simple plaintext descriptor
 .
 .SH "SYNOPSIS"
-\fBgen\-epub\-book IN_FILE OUT_FILE\fR
+\fBgen\-epub\-book\fR IN_FILE OUT_FILE \fIOPTIONS\fR
 .
 .SH "DESCRIPTION"
 Generate an ePub book from a simple plaintext descriptor\.
+.
+.P
+Exit values and possible errors:
+.
+.IP "" 4
+.
+.nf
+
+1 \- I/O error
+2 \- parsing error
+3 \- file not found
+4 \- file in wrong state
+5 \- incorrect amount of elements
+6 \- required element missing
+.
+.fi
+.
+.IP "" 0
+.
+.SH "OPTIONS"
+\-v \-\-verbose
+.
+.IP "" 4
+.
+.nf
+
+Print out more data\.
+
+Default: false\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+IN_FILE
+.
+.IP "" 4
+.
+.nf
+
+File to parse, must exist, must comply with the DESCRIPTOR FORMAT\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+OUT_FILE
+.
+.IP "" 4
+.
+.nf
+
+File to write the book to, parent directory needn\'t exist\.
+.
+.fi
+.
+.IP "" 0
 .
 .SH "DESCRIPTOR FORMAT"
 The descriptor consists of multiple lines in the format \fI"Key: Value"\fR, unknown keys are ignored, lines that don\'t match the format are ignored\.
