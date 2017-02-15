@@ -1,0 +1,240 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GEN\-EPUB\-BOOK\.CPP" "1" "February 2017" "gen-epub-book.cpp developecpp" ""
+.
+.SH "NAME"
+\fBgen\-epub\-book\.cpp\fR \- Generate an ePub book from a simple plaintext descriptor
+.
+.SH "SYNOPSIS"
+\fBgen\-epub\-book\fR IN_FILE OUT_FILE
+.
+.SH "DESCRIPTION"
+Generate an ePub book from a simple plaintext descriptor\.
+.
+.SH "OPTIONS"
+IN_FILE
+.
+.IP "" 4
+.
+.nf
+
+File to parse, must exist, must comply with the DESCRIPTOR FORMAT\.
+
+Special case: \'\-\' to read from stdin\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+OUT_FILE
+.
+.IP "" 4
+.
+.nf
+
+File to write the book to, parent directory needn\'t exist\.
+
+Special case: \'\-\' to write to stdout\.
+.
+.fi
+.
+.IP "" 0
+.
+.SH "DESCRIPTOR FORMAT"
+The descriptor consists of multiple lines in the format \fI"Key: Value"\fR, unknown keys are ignored, lines that don\'t match the format are ignored\.
+.
+.P
+Name
+.
+.IP "" 4
+.
+.nf
+
+Required: yes
+Type: plaintext
+Value: e\-book\'s title
+Amount: 1
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Content
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: file path
+Value: relative path to (X)HTML chunk
+Amount: any
+Remarks: see ADDITIONAL CONTENT PROCESSING
+.
+.fi
+.
+.IP "" 0
+.
+.P
+String\-Content
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: (X)HTML
+Value: (X)HTML string
+Amount: any
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Image\-Content
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: file path
+Value: relative path to image to include in e\-book
+Amount: any
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Network\-Image\-Content
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: file URL
+Value: URL of image to include in e\-book
+Amount: any
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Cover
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: file path
+Value: relative path to image to use as e\-book cover
+Amount: 0\-1
+Remarks: exclusive with Network\-Cover
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Network\-Cover
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: file URL
+Value: URL to image to use as e\-book cover
+Amount: 0\-1
+Remarks: exclusive with Cover
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Author
+.
+.IP "" 4
+.
+.nf
+
+Required: yes
+Type: plaintext string
+Value: e\-book\'s author
+Amount: 1
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Date
+.
+.IP "" 4
+.
+.nf
+
+Required: yes
+Type: RFC3339\-compliant date
+Value: e\-book\'s authoring/publishing date
+Amount: 1
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Language
+.
+.IP "" 4
+.
+.nf
+
+Required: yes
+Type: BCP47\-compliant language code
+Value: language used in e\-book
+Amount: 1
+.
+.fi
+.
+.IP "" 0
+.
+.SH "ADDITIONAL CONTENT PROCESSING"
+When adding content using the \fBContent\fR entry, the file will additinally be searched for a comment specifying the its name in the TOC in this format:
+.
+.IP "" 4
+.
+.nf
+
+<!\-\- ePub title: "TOC_NAME" \-\->
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Where \fBTOC_NAME\fR is a string not containing the \fI"\fR character\.
+.
+.P
+This will, on e\-book readers, allow users to jump directly to the content represented by the document containing this entry\.
+.
+.P
+Optional\.
+.
+.SH "AUTHOR"
+Written by nabijaczleweli <\fInabijaczleweli@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/nabijaczleweli/gen\-epub\-book\.cpp/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/nabijaczleweli/gen\-epub\-book\.cpp\fR>
