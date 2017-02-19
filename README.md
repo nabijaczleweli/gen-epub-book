@@ -57,3 +57,5 @@ Also, why not?
 ## Versions in other languages
 
 A rewrite in [Rust](https://github.com/nabijaczleweli/gen-epub-book.rs).
+
+A rewrite in [C++](https://github.com/nabijaczleweli/gen-epub-book.cpp).

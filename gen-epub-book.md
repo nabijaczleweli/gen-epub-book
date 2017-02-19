@@ -120,7 +120,7 @@ keys are ignored, lines that don't match the format are ignored.
   Language
 
     Required: yes
-    Type: ISO-639-1-compliant language code
+    Type: BCP47-compliant language code
     Value: language used in e-book
     Amount: 1
     Order: irrelevant
