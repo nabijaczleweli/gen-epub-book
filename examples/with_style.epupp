@@ -1,0 +1,10 @@
+Name: With style
+
+Content: with_style/req.html
+Include: with_style/style.css
+Include: with_style/octicons.css
+Network-Include: https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.eot
+
+Author: nabijaczleweli
+Date: 2017-04-07T21:28:41+02:00
+Language: en-GB
