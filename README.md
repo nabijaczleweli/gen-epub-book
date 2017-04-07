@@ -32,8 +32,8 @@ For more detailed usage information and tag list, see the [manpage](https://cdn.
 
 AWK version|Supported
 -----------|---------
-    GAWK   |   :+1:
-    MAWK   |   :-1:
+GAWK       | :+1:
+MAWK       | :-1:
 
 Other versions untested, open an issue if you want one.
 
