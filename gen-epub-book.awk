@@ -34,7 +34,7 @@ function mimetype(fname) {
 function add_content(filename, idx) {
 	content_filename[idx] = gensub(/\.\.-/, "", "g", gensub(/\//, "-", "g", filename))
 	content_file[idx] = gensub(/(.+)\/.+/, "\\1/" filename, "g", self)
-	content_name[idx] = gensub(/\.\.-/, "", "g", gensub(/\//, "-", "g", gensub(/([^.]+)\..*/, "\\1", "g", filename)))
+	content_name[idx] = gensub(/\.\.-/, "", "g", gensub(/\//, "-", "g", gensub(/\./, "_", "g", filename)))
 }
 
 function write_content_head(outfile_idx) {
@@ -125,7 +125,7 @@ BEGIN {
 
 	noncontent_filename[noncontent_idx] = gensub(/\.\.-/, "", "g", gensub(/\//, "-", "g", gensub(/Image-Content: (.+)/, "\\1", "g")))
 	noncontent_file[noncontent_idx] = gensub(/(.+)\/.+/, "\\1/" gensub(/Image-Content: (.+)/, "\\1", "g"), "g", self)
-	noncontent_name[noncontent_idx] = gensub(/\//, "-", "g", gensub(/([^.]+)\..*/, "\\1", "g", gensub(/Image-Content: (.+)/, "\\1", "g")))
+	noncontent_name[noncontent_idx] = gensub(/\//, "-", "g", gensub(/\./, "_", "g", gensub(/Image-Content: (.+)/, "\\1", "g")))
 
 	content_filename[content_idx] = "image-data-" content_idx ".html"
 	content_file[content_idx] = temp "../" flat_name "-image-content/data-" content_idx ".html"
@@ -142,7 +142,7 @@ BEGIN {
 
 	noncontent_filename[noncontent_idx] = gensub(/Network-Image-Content: .+\/(.+)/, "\\1", "g")
 	noncontent_file[noncontent_idx] = temp "../" flat_name "-network-image-content/" noncontent_filename[noncontent_idx]
-	noncontent_name[noncontent_idx] = "network-image-content-" content_idx "-" gensub(/Network-Image-Content: .+\/([^.]+)\..+/, "\\1", "g")
+	noncontent_name[noncontent_idx] = "network-image-content-" content_idx "-" gensub(/Network-Image-Content: .+\/([^.]+)\.(.+)/, "\\1_(\\2)", "g")
 
 	content_filename[content_idx] = "network-image-data-" content_idx ".html"
 	content_file[content_idx] = temp "../" flat_name "-network-image-content/data-" content_idx ".html"
@@ -160,7 +160,7 @@ BEGIN {
 
 	noncontent_filename[0] = gensub(/\.\.-/, "", "g", gensub(/\//, "-", "g", gensub(/Cover: (.+)/, "\\1", "g")))
 	noncontent_file[0] = gensub(/(.+)\/.+/, "\\1/" gensub(/Cover: (.+)/, "\\1", "g"), "g", self)
-	noncontent_name[0] = gensub(/\//, "-", "g", gensub(/([^.]+)\..*/, "\\1", "g", gensub(/Cover: (.+)/, "\\1", "g")))
+	noncontent_name[0] = gensub(/\//, "-", "g", gensub(/\./, "_", "g", gensub(/Cover: (.+)/, "\\1", "g")))
 
 	content_filename[0] = "image-data-" 0 ".html"
 	content_file[0] = temp "../" flat_name "-image-content/data-" 0 ".html"
@@ -174,7 +174,7 @@ BEGIN {
 
 	content_filename[0] = gensub(/Network-Cover: .+\/(.+)/, "\\1", "g")
 	content_file[0] = temp "../" flat_name "-network-image-content/" content_filename[0]
-	content_name[0] = "network-cover-" content_idx "-" gensub(/Network-Cover: .+\/([^.]+)\..+/, "\\1", "g")
+	content_name[0] = "network-cover-" content_idx "-" gensub(/Network-Cover: .+\/([^.]+)\.(.+)/, "\\1_\\2", "g")
 
 	system("cd '" temp "../" flat_name "-network-image-content/' && curl -SsOL " gensub(/Network-Cover: (.+)/, "\\1", "g"))
 
@@ -184,7 +184,7 @@ BEGIN {
 /^Include: / {
 	noncontent_filename[noncontent_idx] = gensub(/\.\.-/, "", "g", gensub(/\//, "-", "g", gensub(/Include: (.+)/, "\\1", "g")))
 	noncontent_file[noncontent_idx] = gensub(/(.+)\/.+/, "\\1/" gensub(/Include: (.+)/, "\\1", "g"), "g", self)
-	noncontent_name[noncontent_idx] = gensub(/\//, "-", "g", gensub(/([^.]+)\..*/, "\\1", "g", gensub(/Include: (.+)/, "\\1", "g")))
+	noncontent_name[noncontent_idx] = gensub(/\//, "-", "g", gensub(/\./, "_", "g", gensub(/Include: (.+)/, "\\1", "g")))
 
 	++noncontent_idx
 }
@@ -194,7 +194,7 @@ BEGIN {
 
 	noncontent_filename[noncontent_idx] = gensub(/Network-Include: .+\/(.+)/, "\\1", "g")
 	noncontent_file[noncontent_idx] = temp "../" flat_name "-network-include/" noncontent_filename[noncontent_idx]
-	noncontent_name[noncontent_idx] = "network-include-" content_idx "-" gensub(/Network-Include: .+\/([^.]+)\..+/, "\\1", "g")
+	noncontent_name[noncontent_idx] = "network-include-" content_idx "-" gensub(/Network-Include: .+\/([^.]+)\.(.+)/, "\\1_\\2", "g")
 
 	system("cd " temp "../" flat_name "-network-include/ && curl -SsOL " gensub(/Network-Include: (.+)/, "\\1", "g"))
 
