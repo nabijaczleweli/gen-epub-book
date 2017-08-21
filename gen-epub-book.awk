@@ -34,7 +34,7 @@ function mimetype(fname) {
 function add_content(filename, idx) {
 	content_filename[idx] = gensub(/\.\.-/, "", "g", gensub(/\//, "-", "g", filename))
 	content_file[idx] = gensub(/(.+)\/.+/, "\\1/" filename, "g", self)
-	content_name[idx] = gensub(/\.\.-/, "", "g", gensub(/\//, "-", "g", gensub(/\./, "_", "g", filename)))
+	content_name[idx] = gensub(/\./, "_", "g", gensub(/\.\.-/, "", "g", gensub(/\//, "-", "g", filename)))
 }
 
 function write_content_head(outfile_idx) {
@@ -97,8 +97,8 @@ BEGIN {
 /^Content: / {
 	add_content(gensub(/Content: (.+)/, "\\1", "g"), content_idx)
 
-	"grep -E '<!-- ePub title: \"[^\"]+\" -->' '" content_file[content_idx] "'" | getline content_title[content_idx]
-	close("grep -E '<!-- ePub title: \"[^\"]+\" -->' '" content_file[content_idx] "'")
+	ARGV[0] " '/<!-- ePub title: \"([^\"]+)\" -->/' '" content_file[content_idx] "'" | getline content_title[content_idx]
+	close(ARGV[0] " '/<!-- ePub title: \"([^\"]+)\" -->/' '" content_file[content_idx] "'")
 	if(content_title[content_idx] == "" || content_title[content_idx] == "\n") {
 		delete content_title[content_idx]
 	} else {
@@ -148,7 +148,7 @@ BEGIN {
 	content_file[content_idx] = temp "../" flat_name "-network-image-content/data-" content_idx ".html"
 	content_name[content_idx] = "network-image-content-" content_idx
 
-	system("cd " temp "../" flat_name "-network-image-content/ && curl -SsOL " gensub(/Network-Image-Content: (.+)/, "\\1", "g"))
+	system("curl -SsL '" gensub(/Network-Image-Content: (.+)/, "\\1", "g") "' -o '" noncontent_file[noncontent_idx] "'")
 	write_image_content(noncontent_idx, content_idx)
 
 	++content_idx
@@ -176,7 +176,7 @@ BEGIN {
 	content_file[0] = temp "../" flat_name "-network-image-content/" content_filename[0]
 	content_name[0] = "network-cover-" content_idx "-" gensub(/Network-Cover: .+\/([^.]+)\.(.+)/, "\\1_\\2", "g")
 
-	system("cd '" temp "../" flat_name "-network-image-content/' && curl -SsOL " gensub(/Network-Cover: (.+)/, "\\1", "g"))
+	system("curl -SOL '" gensub(/Network-Cover: (.+)/, "\\1", "g") "' -o '" content_file[0] "'")
 
 	have_cover = 1
 }
@@ -196,7 +196,7 @@ BEGIN {
 	noncontent_file[noncontent_idx] = temp "../" flat_name "-network-include/" noncontent_filename[noncontent_idx]
 	noncontent_name[noncontent_idx] = "network-include-" content_idx "-" gensub(/Network-Include: .+\/([^.]+)\.(.+)/, "\\1_\\2", "g")
 
-	system("cd " temp "../" flat_name "-network-include/ && curl -SsOL " gensub(/Network-Include: (.+)/, "\\1", "g"))
+	system("curl -SOL '" gensub(/Network-Include: (.+)/, "\\1", "g") " -o '" noncontent_file[noncontent_idx] "'")
 
 	++noncontent_idx
 }
@@ -302,5 +302,5 @@ END {
 		}
 
 	system("cd '" temp "' && rm -f '../" flat_name ".epub' && zip -qr9 '../" flat_name ".epub' .")
-	system("cat '" temp "../" flat_name ".epub'")
+	system("cp '" temp "../" flat_name ".epub' '" out_file "'")
 }

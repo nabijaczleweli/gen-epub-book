@@ -59,4 +59,4 @@ $(OUTDIR)%.mobi : $(OUTDIR)%.epub
 
 $(OUTDIR)%.epub : gen-epub-book.awk examples/%.epupp
 	@mkdir -p $(dir $@)
-	$(ECHO) "Self: $(filter-out $<,$^)\nOut: $@" | cat - $(filter-out $<,$^) | $(AWK) -f $< -v temp="$(TEMP_DIR)" > $@
+	$(ECHO) "Self: $(filter-out $<,$^)\nOut: $@" | cat - $(filter-out $<,$^) | $(AWK) -f $< -v temp="$(TEMP_DIR)"
