@@ -59,6 +59,7 @@
     <a href="#OPTIONS">OPTIONS</a>
     <a href="#DESCRIPTOR-FORMAT">DESCRIPTOR FORMAT</a>
     <a href="#ADDITIONAL-CONTENT-PROCESSING">ADDITIONAL CONTENT PROCESSING</a>
+    <a href="#FREE-DATE-FORMAT-FEATURE">FREE DATE FORMAT FEATURE</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
     <a href="#SEE-ALSO">SEE ALSO</a>
@@ -225,6 +226,7 @@ Amount: 1
 Type: RFC3339-compliant date
 Value: e-book's authoring/publishing date
 Amount: 1
+Remarks: see FREE DATE FORMAT FEATURE
 </code></pre>
 
 <p>  Language</p>
@@ -250,9 +252,23 @@ represented by the document containing this entry.</p>
 
 <p>Optional.</p>
 
+<h2 id="FREE-DATE-FORMAT-FEATURE">FREE DATE FORMAT FEATURE</h2>
+
+<p>With the -D/--free-date flag, you can enable the free date format feature:
+&lt;<a href="https://nabijaczleweli.xyz/content/gen-epub-book/programmer.html#features-free-date-format" data-bare-link="true">https://nabijaczleweli.xyz/content/gen-epub-book/programmer.html#features-free-date-format</a>&gt;.</p>
+
+<p>The supported formats therewith are therefore:</p>
+
+<ul>
+<li>RFC3339 (e.g. "2017-02-08T15:30:18+01:00"),</li>
+<li>RFC2822 (e.g. "Wed, 08 Feb 2017 15:30:18 +0100"),</li>
+<li>Unix timestamp w/timezone (e.g. "1486564218+01:00").</li>
+</ul>
+
+
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by nabijaczleweli &lt;<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#110;&#x61;&#98;&#105;&#x6a;&#x61;&#99;&#122;&#x6c;&#101;&#119;&#x65;&#108;&#x69;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;" data-bare-link="true">&#110;&#x61;&#x62;&#x69;&#106;&#x61;&#99;&#122;&#108;&#101;&#119;&#x65;&#108;&#105;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a>&gt;</p>
+<p>Written by nabijaczleweli &lt;<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x6e;&#x61;&#98;&#105;&#106;&#97;&#x63;&#x7a;&#x6c;&#x65;&#x77;&#101;&#x6c;&#105;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;" data-bare-link="true">&#x6e;&#97;&#x62;&#105;&#x6a;&#x61;&#x63;&#122;&#108;&#x65;&#x77;&#101;&#108;&#105;&#x40;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
