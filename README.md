@@ -28,7 +28,8 @@ echo -e "Self: example/test.epupp\nOut: out/test.epub" | cat - example/test.epup
   awk gen-epub-book.awk -v temp="$TEMP
 ```
 
-For more detailed usage information and tag list, see the [manpage](https://cdn.rawgit.com/nabijaczleweli/gen-epub-book/man/gen-epub-book.awk.1.html).
+For more detailed usage information and tag list, see the [manpage](https://cdn.rawgit.com/nabijaczleweli/gen-epub-book/man/gen-epub-book.awk.1.html),
+and for a full guide see the [webpage](https://nabijaczleweli.xyz/content/gen-epub-book).
 
 ## AWK support
 
@@ -58,8 +59,7 @@ Also, why not?
 
 ## Versions in other languages
 
-A rewrite in [Rust](https://github.com/nabijaczleweli/gen-epub-book.rs).
-
-A rewrite in [C++](https://github.com/nabijaczleweli/gen-epub-book.cpp).
-
-A rewrite in [Scala](https://github.com/nabijaczleweli/gen-epub-book.scala).
+A rewrite in [Rust](https://github.com/nabijaczleweli/gen-epub-book.rs).<br />
+A rewrite in [C++](https://github.com/nabijaczleweli/gen-epub-book.cpp).<br />
+A rewrite in [Scala](https://github.com/nabijaczleweli/gen-epub-book.scala).<br />
+A rewrite in [JavaScript](https://github.com/nabijaczleweli/gen-epub-book.js).
