@@ -7,7 +7,7 @@
 \fBgen\-epub\-book\.js\fR \- Generate an ePub book from a simple plaintext descriptor
 .
 .SH "SYNOPSIS"
-\fBgen\-epub\-book\fR IN_FILE OUT_FILE
+\fBgen\-epub\-book\fR IN_FILE OUT_FILE \fIOPTIONS\fR
 .
 .SH "DESCRIPTION"
 Generate an ePub book from a simple plaintext descriptor\.
@@ -33,6 +33,21 @@ OUT_FILE
 .nf
 
 File to write the book to, parent directory needn\'t exist\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\-\-separator \fISEP\fR
+.
+.IP "" 4
+.
+.nf
+
+Use SEP as key/value separator\.
+
+Default: ":"
 .
 .fi
 .
