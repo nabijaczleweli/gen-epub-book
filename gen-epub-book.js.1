@@ -39,7 +39,7 @@ File to write the book to, parent directory needn\'t exist\.
 .IP "" 0
 .
 .P
-\-\-separator \fISEP\fR
+\-S \-\-separator \fISEP\fR
 .
 .IP "" 4
 .
@@ -48,6 +48,21 @@ File to write the book to, parent directory needn\'t exist\.
 Use SEP as key/value separator\.
 
 Default: ":"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\-D \-\-free\-date
+.
+.IP "" 4
+.
+.nf
+
+Try to parse non\-RFC3339 date formats\.
+
+Default: don\'t\.
 .
 .fi
 .
@@ -273,6 +288,26 @@ This will, on e\-book readers, allow users to jump directly to the content repre
 .
 .P
 Optional\.
+.
+.SH "FREE DATE FORMAT FEATURE"
+With the \-D/\-\-free\-date flag, you can enable the free date format feature: <\fIhttps://nabijaczleweli\.xyz/content/gen\-epub\-book/programmer\.html#features\-free\-date\-format\fR>\.
+.
+.P
+The supported formats therewith are therefore:
+.
+.IP "\(bu" 4
+RFC3339 (e\.g\. "2017\-02\-08T15:30:18+01:00"),
+.
+.IP "\(bu" 4
+RFC2822 (e\.g\. "Wed, 08 Feb 2017 15:30:18 +0100"),
+.
+.IP "\(bu" 4
+known ISO8601 formats \fIhttp://momentjs\.com/docs/#/parsing/string\fR,
+.
+.IP "\(bu" 4
+some more, browser\-dependent \fIhttps://developer\.mozilla\.org/en\-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse\fR\.
+.
+.IP "" 0
 .
 .SH "AUTHOR"
 Written by nabijaczleweli <\fInabijaczleweli@gmail\.com\fR>
