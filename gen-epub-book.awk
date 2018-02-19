@@ -212,9 +212,25 @@ BEGIN {
 	noncontent_file[noncontent_idx] = temp "../" flat_name "-network-include/" noncontent_filename[noncontent_idx]
 	noncontent_name[noncontent_idx] = "network-include-" content_idx "-" gensub(/Network-Include: .+\/([^.]+)\.(.+)/, "\\1_\\2", "g")
 
-	system("curl -SOL '" gensub(/Network-Include: (.+)/, "\\1", "g") " -o '" noncontent_file[noncontent_idx] "'")
+	system("curl -SOL '" gensub(/Network-Include: (.+)/, "\\1", "g") "' -o '" noncontent_file[noncontent_idx] "'")
 
 	++noncontent_idx
+}
+
+/^Description: / {
+	description_file = gensub(/(.+)\/.+/, "\\1/" gensub(/Description: (.+)/, "\\1", "g"), "g", self)
+}
+
+/^String-Description: / {
+	description_file = temp "../" flat_name "-description"
+
+	print(gensub(/String-Description: (.+)/, "\\1", "g")) > description_file
+}
+
+/^Network-Description: / {
+	description_file = temp "../" flat_name "-description"
+
+	system("curl -SOL '" gensub(/Network-Description: (.+)/, "\\1", "g") "' -o '" description_file "'")
 }
 
 /^Author: / {
@@ -253,6 +269,19 @@ END {
 	print("    <dc:identifier id=\"uuid\" opf:scheme=\"uuid\">" uuid "</dc:identifier>") > temp "content.opf"
 	print("    <dc:date>" date "</dc:date>") > temp "content.opf"
 	print("    <dc:language>" language "</dc:language>") > temp "content.opf"
+	if(description_file) {
+    rs_temp = RS
+    RS = "^$"
+    getline description < description_file
+    close(description_file)
+    RS = rs_temp
+
+		print("    <dc:description>") > temp "content.opf"
+		print(description) > temp "content.opf"
+		print("    </dc:description>") > temp "content.opf"
+
+		description = ""
+	}
 	if(have_cover == 1)
 		print("    <meta name=\"cover\" content=\"" content_name[0] "\" />") > temp "content.opf"
 	print("  </metadata>") > temp "content.opf"
