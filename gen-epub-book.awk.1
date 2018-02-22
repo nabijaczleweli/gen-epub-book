@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GEN\-EPUB\-BOOK\.AWK" "1" "September 2017" "gen-epub-book.awk developers" ""
+.TH "GEN\-EPUB\-BOOK\.AWK" "1" "February 2018" "gen-epub-book.awk developers" ""
 .
 .SH "NAME"
 \fBgen\-epub\-book\.awk\fR \- Generate an ePub book from a simple plaintext descriptor
@@ -177,6 +177,89 @@ Value: URL to image to use as e\-book cover
 Amount: 0\-1
 Order: after Self and Out
 Remarks: exclusive with Cover
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Include
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: file path
+Value: auxilliary file to include in e\-book
+Amount: any
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Network\-Include
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: file URL
+Value: URL of auxilliary file to include in e\-book
+Amount: any
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Description
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: file URL
+Value: relative path to book description
+Amount: 0\-1
+Remarks: exclusive with String\-Description and Network\-Description
+.
+.fi
+.
+.IP "" 0
+.
+.P
+String\-Description
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: (X)HTML
+Value: book description
+Amount: 0\-1
+Remarks: exclusive with Description and Network\-Description
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Network\-Description
+.
+.IP "" 4
+.
+.nf
+
+Required: no
+Type: file URL
+Value: URL of book description
+Amount: 0\-1
+Remarks: exclusive with Description and String\-Description
 .
 .fi
 .
