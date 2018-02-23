@@ -222,12 +222,14 @@ BEGIN {
 }
 
 /^String-Description: / {
+	system(mkdir_p " '" temp "'")
 	description_file = temp "../" flat_name "-description"
 
 	print(gensub(/String-Description: (.+)/, "\\1", "g")) > description_file
 }
 
 /^Network-Description: / {
+	system(mkdir_p " '" temp "'")
 	description_file = temp "../" flat_name "-description"
 
 	system("curl -SOL '" gensub(/Network-Description: (.+)/, "\\1", "g") "' -o '" description_file "'")
