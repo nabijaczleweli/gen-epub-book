@@ -3,7 +3,7 @@ Generate an ePub book from a simple plaintext descriptor.
 
 ## [Webpage](https://nabijaczleweli.xyz/content/gen-epub-book)
 
-## [Manpage](https://cdn.rawgit.com/nabijaczleweli/gen-epub-book/man/gen-epub-book.awk.1.html)
+## [Manpage](https://rawcdn.githack.com/nabijaczleweli/gen-epub-book/man/gen-epub-book.awk.1.html)
 
 ## Quickstart
 
@@ -28,7 +28,7 @@ echo -e "Self: example/test.epupp\nOut: out/test.epub" | cat - example/test.epup
   awk gen-epub-book.awk -v temp="$TEMP
 ```
 
-For more detailed usage information and tag list, see the [manpage](https://cdn.rawgit.com/nabijaczleweli/gen-epub-book/man/gen-epub-book.awk.1.html),
+For more detailed usage information and tag list, see the [manpage](https://rawcdn.githack.com/nabijaczleweli/gen-epub-book/man/gen-epub-book.awk.1.html),
 and for a full guide see the [webpage](https://nabijaczleweli.xyz/content/gen-epub-book).
 
 ## AWK support
