@@ -348,6 +348,6 @@ END {
 			copied_noncontent_names[noncontent_name[i]] = i
 		}
 
-	system("cd '" temp "' && " rm_f " '../" flat_name ".epub' && zip -qr9 '../" flat_name ".epub' .")
+	system("cd '" temp "' && " rm_f " '../" flat_name ".epub' && zip -qr9 '../" flat_name ".epub' mimetype .")
 	system(cp " '" temp "../" flat_name ".epub' '" out_file "'")
 }
